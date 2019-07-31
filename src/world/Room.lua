@@ -66,7 +66,24 @@ function Room:generateEntities()
 
             health = 1
         })
+    end
+    -- 1 in every 3 rooms will contain a coin
+    if math.random(3) == 1 then
+        table.insert(self.entities, Entity {
+          animations = ENTITY_DEFS['coins'].animations,
+          walkSpeed = ENTITY_DEFS['coins'].walkSpeed or 20,
+          -- ensure X and Y are within bounds of the map
+          x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+              VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+          y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+              VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16),
+          width = 16,
+          height = 16,
+          health = ENTITY_DEFS['coins'].health or 10
+        })
+    end
 
+    for i = 1, #self.entities do
         self.entities[i].stateMachine = StateMachine {
             ['walk'] = function() return EntityWalkState(self.entities[i]) end,
             ['idle'] = function() return EntityIdleState(self.entities[i]) end
@@ -235,6 +252,8 @@ function Room:update(dt)
 
         -- collision between the player and entities in the room
         if not entity.dead and self.player:collides(entity) and not self.player.invulnerable then
+            -- add something here if entity.ENTITY_DEFS == 'coins' then give the player a bunch of points and add it
+            -- to the thing
             gSounds['hit-player']:play()
             self.player:damage(1)
             self.player:goInvulnerable(1.5)
@@ -250,6 +269,7 @@ function Room:update(dt)
             if entity.health == 0 then
                 entity.dead = true
                 table.remove(self.player.objects, 1)
+                self.player.score = self.player.score + 100
             end
         end
     end
@@ -314,6 +334,7 @@ function Room:update(dt)
                 if self.player.health <= 6 then
                     self.player.health = math.min(6, self.player.health + 2)
                     for i = #self.objects, 3, -1 do
+                        self.player.score = self.player.score + 100
                         table.remove(self.objects, i)
                         gSounds['power-up']:play()
                     end

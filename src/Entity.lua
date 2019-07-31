@@ -47,6 +47,7 @@ function Entity:init(def)
     self.random_num = math.random(10)
     self.objects = {}
     self.potJustThrown = def.potJustThrown or false
+    self.score = def.score or 0
 end
 
 function Entity:createAnimations(animations)

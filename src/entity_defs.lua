@@ -118,6 +118,7 @@ ENTITY_DEFS = {
     },
     ['skeleton'] = {
         texture = 'entities',
+        walkSpeed = 16,
         animations = {
             ['walk-left'] = {
                 frames = {22, 23, 24, 23},
@@ -151,6 +152,7 @@ ENTITY_DEFS = {
     },
     ['slime'] = {
         texture = 'entities',
+        walkSpeed = 10,
         animations = {
             ['walk-left'] = {
                 frames = {61, 62, 63, 62},
@@ -185,8 +187,8 @@ ENTITY_DEFS = {
     ['bat'] = {
         texture = 'entities',
         animations = {
-            ['walk-left'] = {
-                frames = {64, 65, 66, 65},
+              ['walk-left'] = {
+                  frames = {64, 65, 66, 65},
                 interval = 0.2
             },
             ['walk-right'] = {
@@ -221,6 +223,7 @@ ENTITY_DEFS = {
     },
     ['ghost'] = {
         texture = 'entities',
+        walkSpeed = 40,
         animations = {
             ['walk-left'] = {
                 frames = {67, 68, 69, 68},
@@ -254,6 +257,7 @@ ENTITY_DEFS = {
     },
     ['spider'] = {
         texture = 'entities',
+        walkSpeed = 45,
         animations = {
             ['walk-left'] = {
                 frames = {70, 71, 72, 71},
@@ -282,6 +286,49 @@ ENTITY_DEFS = {
             },
             ['idle-up'] = {
                 frames = {95}
+            }
+        }
+    },
+    ['coins'] = {
+        texture = 'coins',
+        walkSpeed = 40,
+        health = 10,
+        animations = {
+            ['walk-left'] = {
+                texture = 'coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-right'] = {
+                texture = 'coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-down'] = {
+                texture = 'coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-up'] = {
+                texture = 'coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['idle-left'] = {
+                texture = 'coins',
+                frames = {1}
+            },
+            ['idle-right'] = {
+                texture = 'coins',
+                frames = {4}
+            },
+            ['idle-down'] = {
+                texture = 'coins',
+                frames = {1}
+            },
+            ['idle-up'] = {
+                texture = 'coins',
+                frames = {4}
             }
         }
     }

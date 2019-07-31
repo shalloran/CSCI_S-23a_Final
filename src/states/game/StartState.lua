@@ -14,12 +14,16 @@ function StartState:update(dt)
     end
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('play')
+        gStateMachine:change('play', {
+            player = self.player,
+            dungeon = self.dungeon,
+            currentRoom = self.currentRoom
+        })
     end
 end
 
 function StartState:render()
-    love.graphics.draw(gTextures['background'], 0, 0, 0, 
+    love.graphics.draw(gTextures['background'], 0, 0, 0,
         VIRTUAL_WIDTH / gTextures['background']:getWidth(),
         VIRTUAL_HEIGHT / gTextures['background']:getHeight())
 

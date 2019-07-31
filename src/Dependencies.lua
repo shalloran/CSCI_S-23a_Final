@@ -37,6 +37,7 @@ require 'src/states/entity/player/PlayerIdleWithPotState'
 require 'src/states/game/GameOverState'
 require 'src/states/game/PlayState'
 require 'src/states/game/StartState'
+require 'src/states/game/PauseState'
 
 gTextures = {
     ['tiles'] = love.graphics.newImage('graphics/tilesheet.png'),
@@ -47,7 +48,8 @@ gTextures = {
     ['switches'] = love.graphics.newImage('graphics/switches.png'),
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
     ['character-pickup-pot'] = love.graphics.newImage('graphics/character_pot_lift.png'),
-    ['walk-pot'] = love.graphics.newImage('graphics/character_pot_walk3.png')
+    ['walk-pot'] = love.graphics.newImage('graphics/character_pot_walk3.png'),
+    ['coins'] = love.graphics.newImage('graphics/coins.png')
 }
 
 gFrames = {
@@ -58,7 +60,8 @@ gFrames = {
     ['hearts'] = GenerateQuads(gTextures['hearts'], 16, 16),
     ['switches'] = GenerateQuads(gTextures['switches'], 16, 18),
     ['character-pickup-pot'] = GenerateQuads(gTextures['character-pickup-pot'], 16, 32),
-    ['walk-pot'] = GenerateQuads(gTextures['walk-pot'], 16, 32)
+    ['walk-pot'] = GenerateQuads(gTextures['walk-pot'], 16, 32),
+    ['coins'] = GenerateQuads(gTextures['coins'], 8, 8)
 }
 
 gFonts = {
@@ -68,7 +71,8 @@ gFonts = {
     ['gothic-medium'] = love.graphics.newFont('fonts/GothicPixels.ttf', 16),
     ['gothic-large'] = love.graphics.newFont('fonts/GothicPixels.ttf', 32),
     ['zelda'] = love.graphics.newFont('fonts/zelda.otf', 64),
-    ['zelda-small'] = love.graphics.newFont('fonts/zelda.otf', 32)
+    ['zelda-small'] = love.graphics.newFont('fonts/zelda.otf', 32),
+    ['zelda-teeny'] = love.graphics.newFont('fonts/zelda.otf', 16)
 }
 
 gSounds = {
@@ -77,5 +81,6 @@ gSounds = {
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav'),
     ['door'] = love.audio.newSource('sounds/door.wav'),
-    ['power-up'] = love.audio.newSource('sounds/powerup-reveal.wav')
+    ['power-up'] = love.audio.newSource('sounds/powerup-reveal.wav'),
+    ['pause'] = love.audio.newSource('sounds/pause.mp3')
 }
