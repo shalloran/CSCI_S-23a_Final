@@ -316,19 +316,70 @@ ENTITY_DEFS = {
             },
             ['idle-left'] = {
                 texture = 'coins',
-                frames = {1}
+                frames = {1, 2, 3, 4},
+                interval = 0.3
             },
             ['idle-right'] = {
                 texture = 'coins',
-                frames = {4}
+                frames = {1, 2, 3, 4},
+                interval = 0.3
             },
             ['idle-down'] = {
                 texture = 'coins',
-                frames = {1}
+                frames = {1, 2, 3, 4},
+                interval = 0.3
             },
             ['idle-up'] = {
                 texture = 'coins',
-                frames = {4}
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            }
+        }
+    },
+    ['keys'] = {
+        texture = 'keys-coins',
+        walkSpeed = 0,
+        keyColor = math.random(3),
+        animations = {
+            ['walk-left'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-right'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-down'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['walk-up'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['idle-left'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['idle-right'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['idle-down'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
+            },
+            ['idle-up'] = {
+                texture = 'keys-coins',
+                frames = {1, 2, 3, 4},
+                interval = 0.3
             }
         }
     }

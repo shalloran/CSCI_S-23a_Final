@@ -49,7 +49,10 @@ gTextures = {
     ['entities'] = love.graphics.newImage('graphics/entities.png'),
     ['character-pickup-pot'] = love.graphics.newImage('graphics/character_pot_lift.png'),
     ['walk-pot'] = love.graphics.newImage('graphics/character_pot_walk3.png'),
-    ['coins'] = love.graphics.newImage('graphics/coins.png')
+    -- custom graphic I made from: https://0x72.itch.io/dungeontileset-ii
+    ['coins'] = love.graphics.newImage('graphics/coins.png'),
+    -- https://opengameart.org/content/monsterboy-in-wonder-world-mockup-assets,
+    ['keys-coins'] = love.graphics.newImage('graphics/keys-coins.png')
 }
 
 gFrames = {
@@ -61,7 +64,8 @@ gFrames = {
     ['switches'] = GenerateQuads(gTextures['switches'], 16, 18),
     ['character-pickup-pot'] = GenerateQuads(gTextures['character-pickup-pot'], 16, 32),
     ['walk-pot'] = GenerateQuads(gTextures['walk-pot'], 16, 32),
-    ['coins'] = GenerateQuads(gTextures['coins'], 8, 8)
+    ['coins'] = GenerateQuads(gTextures['coins'], 8, 8),
+    ['keys-coins'] = GenerateQuads(gTextures['keys-coins'], 16, 16)
 }
 
 gFonts = {
@@ -82,5 +86,6 @@ gSounds = {
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav'),
     ['door'] = love.audio.newSource('sounds/door.wav'),
     ['power-up'] = love.audio.newSource('sounds/powerup-reveal.wav'),
+    -- https://freesound.org/people/B_Lamerichs/sounds/265229/
     ['pause'] = love.audio.newSource('sounds/pause.mp3')
 }

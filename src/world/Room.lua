@@ -82,6 +82,20 @@ function Room:generateEntities()
           health = ENTITY_DEFS['coins'].health or 10
         })
     end
+    if math.random(6) == 1 then
+        table.insert(self.entities, Entity {
+          animations = ENTITY_DEFS['keys'].animations,
+          walkSpeed = ENTITY_DEFS['keys'].walkSpeed,
+          -- ensure X and Y are within bounds of the map
+          x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+              VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+          y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+              VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16),
+          width = 16,
+          height = 16,
+          health = 1
+        })
+    end
 
     for i = 1, #self.entities do
         self.entities[i].stateMachine = StateMachine {
@@ -225,7 +239,7 @@ function Room:update(dt)
 
     self.player:update(dt)
 
-    for i = #self.entities, 1, -1 do
+    for i = 1, #self.entities do
         local entity = self.entities[i]
 
         -- remove entity from the table if health is <= 0 + potentially spawn heart
@@ -233,8 +247,8 @@ function Room:update(dt)
             entity.dead = true
             -- create a dead timer? or some kind of entity counter?
             -- here is where we can insert hearts
-            if entity.dead == true and entity.hearts_num == 0 and math.random(10) == entity.random_num and
-            math.random(10) == entity.random_num and #self.objects < 3 and self.player.health <= 4 then
+            if entity.dead == true and entity.hearts_num == 0 and math.random(10) == entity.random_num
+            and #self.objects < 3 and self.player.health <= 4 then
                 --spawn a heart
                 entity.hearts_num = entity.hearts_num + 1
                 Timer.after(0.25, function ()
@@ -269,7 +283,7 @@ function Room:update(dt)
             if entity.health == 0 then
                 entity.dead = true
                 table.remove(self.player.objects, 1)
-                self.player.score = self.player.score + 100
+                self.player.score = self.player.score + 200
             end
         end
     end
@@ -277,9 +291,10 @@ function Room:update(dt)
     if self.player.objects[1] then
         -- if pot travels more than 4 tiles away from the player
         if self.player.objects[1].x <= self.player.x + (4 * TILE_SIZE) or self.player.objects[1].x >= self.player.x - (4 * TILE_SIZE) then
-            Timer.after(1, function () table.remove(self.player.objects, 1) end)
+            Timer.after(0.5, function () table.remove(self.player.objects, 1) end)
         elseif self.player.objects[1].y <= self.player.y + (4 * TILE_SIZE) or self.player.objects[1].y >= self.player.y - (4 * TILE_SIZE) then
-            Timer.after(1, function () table.remove(self.player.objects, 1) end)
+            Timer.after(0.5, function () table.remove(self.player.objects, 1) end)
+        -- if it bumps into a wall
         else
             -- assume we didn't hit a wall
             local wall_bump = false
