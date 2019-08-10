@@ -179,18 +179,6 @@ function Room:generateObjects()
     end
     -- add to list of objects in scene
     table.insert(self.objects, pot)
-
-    -- instantiate a chest randomly in the level based on keys picked up
-    if self.player and self.player.keysCollected >= 1 then
-        local chest = GameObject(
-            GAME_OBJECT_DEFS['chest'],
-            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
-                        VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
-            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
-                        VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-        )
-        table.insert(self.chests, chest)
-    end
 end
 
 --[[
@@ -316,6 +304,55 @@ function Room:update(dt)
                 table.remove(self.keys, i)
                 self.player.score = self.player.score + 500
             end
+        end
+        for i, object in pairs(self.chests) do
+            if self.chests[i] and self.player:collides(self.chests[i]) then
+                local chestType = self.chests[i].state
+                if chestType == 'gold' then
+                    if self.player.goldKey == true then
+                        self.player.keysCollected = self.player.keysCollected - 1
+                        self.player.goldKey = false
+                        table.remove(self.chests, i)
+                        self.player.score = self.player.score + 500
+                    end
+                elseif chestType == 'silver' then
+                    if self.player.silverKey == true then
+                        self.player.keysCollected = self.player.keysCollected - 1
+                        self.player.silverKey = false
+                        table.remove(self.chests, i)
+                        self.player.score = self.player.score + 500
+                    end
+                elseif chestType == 'bronze' then
+                    if self.player.bronzeKey == true then
+                        self.player.keysCollected = self.player.keysCollected - 1
+                        self.player.bronzeKey = false
+                        table.remove(self.chests, i)
+                        self.player.score = self.player.score + 500
+                    end
+                end
+
+            end
+        end
+    end
+
+    if self.player.bronzeKey or self.player.silverKey or self.player.goldKey then
+        if #self.chests < 1 then
+            -- gSounds['power-up']:play()
+            local chest = GameObject(
+                GAME_OBJECT_DEFS['chest'],
+                math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                            VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+                math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                            VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+            )
+            if self.player.bronzeKey then
+                chest.state = 'bronze'
+            elseif self.player.silverKey then
+                chest.state = 'silver'
+            else
+                chest.state = 'gold'
+            end
+            table.insert(self.chests, chest)
         end
     end
 
