@@ -52,7 +52,9 @@ gTextures = {
     -- custom graphic I made from: https://0x72.itch.io/dungeontileset-ii
     ['coins'] = love.graphics.newImage('graphics/coins.png'),
     -- https://opengameart.org/content/monsterboy-in-wonder-world-mockup-assets,
-    ['keys-coins'] = love.graphics.newImage('graphics/keys-coins.png')
+    ['keys-coins'] = love.graphics.newImage('graphics/keys-coins.png'),
+    -- stole the chest from sprite sheet + combined with coins above
+    ['chests'] = love.graphics.newImage('graphics/chests.png')
 }
 
 gFrames = {
@@ -65,7 +67,8 @@ gFrames = {
     ['character-pickup-pot'] = GenerateQuads(gTextures['character-pickup-pot'], 16, 32),
     ['walk-pot'] = GenerateQuads(gTextures['walk-pot'], 16, 32),
     ['coins'] = GenerateQuads(gTextures['coins'], 8, 8),
-    ['keys-coins'] = GenerateQuads(gTextures['keys-coins'], 16, 16)
+    ['keys-coins'] = GenerateQuads(gTextures['keys-coins'], 16, 16),
+    ['chests'] = GenerateQuads(gTextures['chests'], 16, 16)
 }
 
 gFonts = {

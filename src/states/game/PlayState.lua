@@ -114,4 +114,32 @@ function PlayState:render()
     love.graphics.setFont(gFonts['zelda-teeny'])
     love.graphics.printf('Score ' .. self.player.score, 0, 0, VIRTUAL_WIDTH, 'right')
 
+    -- render the keys heads up display
+    local keysInHand = self.player.keysCollected
+    local keyFrame = 7
+    -- self.player.keys = {}
+    love.graphics.printf('Keys ', -15, 0, VIRTUAL_WIDTH, 'center')
+    -- love.graphics.printf(text, x, y, limit, align, r, sx, sy, ox, oy, kx, ky)
+    -- some type of logic here for the empty keys HUD
+    for i = 1, 3 do
+
+        if i == 1 and self.player.goldKey == true then
+            keyFrame = 1
+        elseif i == 1 and self.player.goldKey == false then
+            keyFrame = 7
+        elseif i == 2 and self.player.silverKey == true then
+            keyFrame = 2
+        elseif i == 2 and self.player.silverKey == false then
+            keyFrame = 7
+        elseif i == 3 and self.player.bronzeKey == true then
+            keyFrame = 3
+        elseif i == 3 and self.player.bronzeKey == false then
+            keyFrame = 7
+        end
+
+        love.graphics.draw(gTextures['keys-coins'], gFrames['keys-coins'][keyFrame],
+            (VIRTUAL_WIDTH/2) + (10 + (i - 1) * (TILE_SIZE + 1)), 1)
+        -- handle the first and second keys
+        keysInHand = keysInHand - 1
+    end
 end

@@ -20,6 +20,8 @@ function Room:init(player)
     self:generateEntities()
 
     -- game objects in the room
+    self.keys = {}
+    self.chests = {}
     self.objects = {}
     self:generateObjects()
 
@@ -48,6 +50,7 @@ end
 function Room:generateEntities()
     local types = {'skeleton', 'slime', 'bat', 'ghost', 'spider'}
 
+    -- do something here like math.min(player.score)
     for i = 1, 10 do
         local type = types[math.random(#types)]
 
@@ -80,20 +83,6 @@ function Room:generateEntities()
           width = 16,
           height = 16,
           health = ENTITY_DEFS['coins'].health or 10
-        })
-    end
-    if math.random(6) == 1 then
-        table.insert(self.entities, Entity {
-          animations = ENTITY_DEFS['keys'].animations,
-          walkSpeed = ENTITY_DEFS['keys'].walkSpeed,
-          -- ensure X and Y are within bounds of the map
-          x = math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
-              VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
-          y = math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
-              VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16),
-          width = 16,
-          height = 16,
-          health = 1
         })
     end
 
@@ -190,6 +179,18 @@ function Room:generateObjects()
     end
     -- add to list of objects in scene
     table.insert(self.objects, pot)
+
+    -- instantiate a chest randomly in the level based on keys picked up
+    if self.player and self.player.keysCollected >= 1 then
+        local chest = GameObject(
+            GAME_OBJECT_DEFS['chest'],
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                        VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                        VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+        )
+        table.insert(self.chests, chest)
+    end
 end
 
 --[[
@@ -284,6 +285,36 @@ function Room:update(dt)
                 entity.dead = true
                 table.remove(self.player.objects, 1)
                 self.player.score = self.player.score + 200
+                -- keys logic
+                if math.random(3) == 1 then
+                  local key = GameObject(
+                      GAME_OBJECT_DEFS['keys'],
+                      entity.x, entity.y
+                  )
+                  if self.player.keysCollected == 1 then
+                      key.state = 'silver'
+                  elseif self.player.keysCollected >= 2 then
+                      key.state = 'gold'
+                  end
+                  table.insert(self.keys, key)
+                end
+            end
+        end
+        for i, object in pairs(self.keys) do
+            if self.keys[i] and self.player:collides(self.keys[i]) then
+                local keyType = self.keys[i].state
+                if keyType == 'gold' then
+                    self.player.goldKey = true
+                    self.player.keysCollected = self.player.keysCollected + 1
+                elseif keyType == 'silver' then
+                    self.player.silverKey = true
+                    self.player.keysCollected = self.player.keysCollected + 1
+                elseif keyType == 'bronze' then
+                    self.player.bronzeKey = true
+                    self.player.keysCollected = 1
+                end
+                table.remove(self.keys, i)
+                self.player.score = self.player.score + 500
             end
         end
     end
@@ -389,6 +420,14 @@ function Room:render()
     end
 
     for k, object in pairs(self.objects) do
+        object:render(self.adjacentOffsetX, self.adjacentOffsetY)
+    end
+
+    for k, object in pairs(self.keys) do
+        object:render(self.adjacentOffsetX, self.adjacentOffsetY)
+    end
+
+    for k, object in pairs(self.chests) do
         object:render(self.adjacentOffsetX, self.adjacentOffsetY)
     end
 

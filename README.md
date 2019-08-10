@@ -14,35 +14,24 @@
 ====================================================================================================================
 
 #### What actually happened:
-0. I *really* wanted to implement a pause state! So I did that. see new PauseState.lua.
-1. Implemented the score keeper in the upper right hand side of the screen. Then I reduced the zelda font to be small enough, because I really like it!
-2. Implemented a 'coins' entity which moves fast.
-3. Then I found this cool dungeon sprite sheet here: https://0x72.itch.io/dungeontileset-ii , so I decided to custom make gold, silver, and bronze keys and coins by slightly modifying what they had in GIMP.
+0. I **really** wanted to implement a pause state! So I did that. see new PauseState.lua.
+1. Implemented the score keeper in the upper right hand side of the screen. I created a **teeny** zelda font to be small enough, because I really like it!
+2. Implemented a 'coins' entity which moves fast, but otherwise serves no real purpose.
+3. Changed the speeds of other entities so that it added variety + **sort of** made sense? (entity_defs.lua)
+4. Then I found this cool dungeon sprite sheet here: https://0x72.itch.io/dungeontileset-ii, so I decided to make custom gold, silver, and bronze keys and coins by slightly modifying what they had in GIMP. (Show keys-coins.png)
+5. Created key placeholders for bronze, silver, and gold keys that randomly spawn from entites that are killed with the pots. (PlayState.lua line 121)
+6. Set it up such that every 3rd enemy you kill with a "pot", a key is dropped, first bronze, then silver, then gold. As you pickup the keys, the heads up display created in PlayState.lua (above) shows you your keys. (Show game_objects.lua 'keys' + Room.lua line 275)
+7.
 
+Walkthrough:
+1. Start game play, show how pause works. Pause/ unpause
+2. Show the score keeper - top right hand corner
+3. Point out speeds of different entities, and if coins is there - discuss how pointless that is.
+4. Point out key placeholders + start killing enemies with the pot to grab the keys
+5.
 
-#### Definite to-do's:
-1. Make the coins entity 5X stronger than the average entity, but make it a little bit slower.
-2. Adjust the speeds of the different entities so that it makes sense. Bats are faster than skeletons? Slime is the slowest?
-3. Try to fix the idle sword state + idle sword use issues
-4. Fix the coins entity to take a bunch more damage - figure out this health issue ENTITY_DEFS, etc.
-5. Implement a way to keep track of gold, silver, and bronze keys at top of screen
-
-
-Idea - get 3 keys + then a magical ladder appears in the middle of the next floor. It takes you to a sweet boss.
- - do I want to make a pot appear in every room?
- - the idea of adding more entities to each room as you progress! So start w/ 10 + increment by 1 every time you change rooms.
- - incorporate an easter egg w/ Games People Play by Alan Parsons...
-
-
-
-debugging in `PlayerSwingSwordState`:
-
-`
-    -- debug for player and hurtbox collision rects VV
-
-    love.graphics.setColor(255, 0, 255, 255)
-    love.graphics.rectangle('line', self.player.x, self.player.y, self.player.width, self.player.height)
-    love.graphics.rectangle('line', self.swordHurtbox.x, self.swordHurtbox.y,
-        self.swordHurtbox.width, self.swordHurtbox.height)
-    love.graphics.setColor(255, 255, 255, 255)
-`
+#### Other ideas:
+- get 3 keys + then a magical ladder appears in the middle of the next floor. It takes you to a sweet boss.
+- do I want to make a pot appear in every room?
+- the idea of adding more entities to each room as you progress! So start w/ 10 + increment by 1 every time you change rooms.
+- incorporate an easter egg w/ Games People Play by Alan Parsons...

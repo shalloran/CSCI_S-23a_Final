@@ -343,43 +343,40 @@ ENTITY_DEFS = {
         animations = {
             ['walk-left'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
+                frames = {keyColor, keyColor, keyColor, keyColor}, --{1, 2, 3, 4}
                 interval = 0.3
             },
             ['walk-right'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
+                frames = {keyColor, keyColor, keyColor, keyColor}, --{1, 2, 3, 4}
                 interval = 0.3
             },
             ['walk-down'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
+                frames = {keyColor, keyColor, keyColor, keyColor}, --{1, 2, 3, 4}
                 interval = 0.3
             },
             ['walk-up'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
+                frames = {keyColor, keyColor, keyColor, keyColor}, --{1, 2, 3, 4}
                 interval = 0.3
             },
             ['idle-left'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
+                frames = {keyColor}, --{1, 2, 3, 4}
                 interval = 0.3
             },
             ['idle-right'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
-                interval = 0.3
+                frames = {keyColor}, --{1, 2, 3, 4}
             },
             ['idle-down'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
-                interval = 0.3
+                frames = {keyColor}, --{1, 2, 3, 4}
             },
             ['idle-up'] = {
                 texture = 'keys-coins',
-                frames = {1, 2, 3, 4},
-                interval = 0.3
+                frames = {keyColor}, --{1, 2, 3, 4}
             }
         }
     }

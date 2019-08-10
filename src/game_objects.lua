@@ -62,5 +62,49 @@ GAME_OBJECT_DEFS = {
                 texture = nil
             }
         }
-}
+    },
+    ['keys'] = {
+        type = 'keys',
+        texture = 'keys-coins',
+        frame = 3,
+        width = 16,
+        height = 16,
+        solid = false,
+        defaultState = 'bronze',
+        collidable = false,
+        consumable = true,
+        states = {
+            ['bronze'] = {
+                frame = 3
+            },
+            ['silver'] = {
+                frame = 2
+            },
+            ['gold'] = {
+                frame = 1
+            }
+        }
+    },
+    ['chest'] = {
+        type = 'chest',
+        texture = 'chests',
+        frame = 1,
+        width = 16,
+        height = 16,
+        solid = false,
+        defaultState = 'bronze',
+        collidable = false,
+        consumable = true,
+        states = {
+            ['bronze'] = {
+                frame = 1
+            },
+            ['silver'] = {
+                frame = 2
+            },
+            ['gold'] = {
+                frame = 3
+            }
+        }
+    }
 }

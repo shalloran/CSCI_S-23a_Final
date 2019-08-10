@@ -45,9 +45,17 @@ function Entity:init(def)
     -- ways to limit # of hearts
     self.hearts_num = 0
     self.random_num = math.random(10)
+
+    -- entity gets its own group of object
     self.objects = {}
     self.potJustThrown = def.potJustThrown or false
     self.score = def.score or 0
+    -- key handling
+    self.goldKey = false
+    self.silverKey = false
+    self.bronzeKey = false
+    
+    self.keysCollected = 0
 end
 
 function Entity:createAnimations(animations)
