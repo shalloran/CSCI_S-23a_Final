@@ -1,6 +1,8 @@
-# CSCI_S-23a_Final
+# Zelda Clone (Final Project for Game Design GD-50)
 
 ## GD50 / CSCI S-23a Final Project: Sean Halloran (github: shalloran)
+
+## A Zelda Clone in Lua, LÖVE
 
 ### Initial outline, approved by James, 28 July 2019:
 
